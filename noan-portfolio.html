@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noan • Freelance Developer • Portfolio</title>
+    <link rel="stylesheet" href="noan-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
+</head>
+<body>
+    <!-- Preloader Futuriste -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-content">
+            <div class="code-animation">
+                <div class="typing-effect">
+                    <span class="cursor">|</span>
+                </div>
+            </div>
+            <div class="loading-bar">
+                <div class="progress"></div>
+            </div>
+            <p class="loading-text">Initializing Portfolio...</p>
+        </div>
+    </div>
+
+    <!-- Navigation Cyberpunk -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-bracket">{</span>
+                <span class="logo-name">Noan</span>
+                <span class="logo-bracket">}</span>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link">
+                    <span class="nav-number">01</span>
+                    <span class="nav-text">Accueil</span>
+                </a>
+                <a href="#about" class="nav-link">
+                    <span class="nav-number">02</span>
+                    <span class="nav-text">À Propos</span>
+                </a>
+                <a href="#skills" class="nav-link">
+                    <span class="nav-number">03</span>
+                    <span class="nav-text">Compétences</span>
+                </a>
+                <a href="#contact" class="nav-link">
+                    <span class="nav-number">04</span>
+                    <span class="nav-text">Contact</span>
+                </a>
+            </div>
+            
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Particules de fond -->
+    <div class="particles-background">
+        <canvas id="particlesCanvas"></canvas>
+    </div>
+
+    <!-- Hero Section Époustouflante -->
+    <section id="home" class="hero-section">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-intro">
+                    <span class="greeting">Salut, je suis</span>
+                </div>
+                
+                <h1 class="hero-name">
+                    <span class="name-line">N</span>
+                    <span class="name-line">O</span>
+                    <span class="name-line">A</span>
+                    <span class="name-line">N</span>
+                </h1>
+                
+                <div class="hero-title">
+                    <h2 class="title-main">
+                        <span class="typing-text" data-text="Freelance Developer"></span>
+                        <span class="cursor-blink">|</span>
+                    </h2>
+                    <p class="title-sub">Créateur d'expériences web extraordinaires</p>
+                </div>
+                
+                <div class="hero-description">
+                    <p>À 19 ans, je transforme des idées en <span class="highlight">réalités numériques</span>. 
+                       Chaque ligne de code est une opportunité de créer quelque chose d'<span class="highlight">exceptionnel</span>.</p>
+                </div>
+                
+                <div class="hero-cta">
+                    <button class="cta-primary" onclick="scrollToSection('skills')">
+                        <span>Mes Compétences</span>
+                        <div class="button-fx"></div>
+                    </button>
+                    <a href="mailto:barbelinnoan@gmail.com?subject=Demande de devis - Projet web&body=Bonjour Noan,%0A%0AJe vous contacte pour discuter d'un projet web.%0A%0AType de projet :%0ABudget estimé :%0ADélai souhaité :%0A%0ADescription du projet :%0A%0A%0ACordialement" class="cta-secondary email-btn">
+                        <span>Collaborer</span>
+                    </a>
+                </div>
+                
+                <div class="scroll-indicator">
+                    <div class="scroll-line"></div>
+                    <span>Défiler pour découvrir</span>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="code-matrix">
+                    <div class="matrix-column" data-speed="1"></div>
+                    <div class="matrix-column" data-speed="1.5"></div>
+                    <div class="matrix-column" data-speed="0.8"></div>
+                    <div class="matrix-column" data-speed="1.2"></div>
+                    <div class="matrix-column" data-speed="0.6"></div>
+                </div>
+                
+                <div class="floating-elements">
+                    <div class="code-block">
+                        <div class="code-line">
+                            <span class="keyword">const</span> 
+                            <span class="variable">passion</span> 
+                            <span class="operator">=</span> 
+                            <span class="string">'coding'</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="keyword">while</span>
+                            <span class="punctuation">(</span>
+                            <span class="variable">alive</span>
+                            <span class="punctuation">)</span> 
+                            <span class="punctuation">{</span>
+                        </div>
+                        <div class="code-line indent">
+                            <span class="function">create</span>
+                            <span class="punctuation">(</span>
+                            <span class="string">'amazing_things'</span>
+                            <span class="punctuation">)</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="punctuation">}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- À Propos - Storytelling Immersif -->
+    <section id="about" class="about-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">02</span>
+                <h2 class="section-title">Mon Histoire</h2>
+                <div class="title-line"></div>
+            </div>
+            
+            <div class="about-content">
+                <div class="story-timeline">
+                    <div class="timeline-item" data-year="2014">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>La Naissance d'une Passion</h3>
+                            <p>Tout a commencé par curiosité. À 10 ans, je démontais déjà tout ce qui avait des circuits.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item" data-year="2018">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Premier Hello World</h3>
+                            <p>Ma première ligne de code. Ce moment magique où les pixels obéissent à mes instructions.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item" data-year="2022">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Le Saut vers le Freelance</h3>
+                            <p>À 17 ans, je décide de transformer ma passion en mission. Première entreprise conquise.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item" data-year="2024">
+                        <div class="timeline-dot active"></div>
+                        <div class="timeline-content">
+                            <h3>Aujourd'hui</h3>
+                            <p>19 ans, des dizaines de projets, une seule obsession : <span class="highlight">repousser les limites</span>.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="50">0</div>
+                        <div class="stat-label">Projets Créés</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="5">0</div>
+                        <div class="stat-label">Ans d'Expérience</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="100">0</div>
+                        <div class="stat-label">% Satisfaction</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="24">0</div>
+                        <div class="stat-label">h/24 Motivé</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Compétences - Diagramme Interactif -->
+    <section id="skills" class="skills-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">03</span>
+                <h2 class="section-title">Arsenal Technique</h2>
+                <div class="title-line"></div>
+            </div>
+            
+            <div class="skills-content">
+                <div class="skills-radar">
+                    <canvas id="skillsRadar" width="400" height="400"></canvas>
+                    <div class="radar-legend">
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #00F5FF;"></span>
+                            <span>Frontend</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #FF6B6B;"></span>
+                            <span>Backend</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #4ECDC4;"></span>
+                            <span>Tools</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skills-detailed">
+                    <div class="skill-category">
+                        <h3>Frontend Mastery</h3>
+                        <div class="skills-list">
+                            <div class="skill-item" data-level="95">
+                                <div class="skill-info">
+                                    <span class="skill-name">React/Next.js</span>
+                                    <span class="skill-percentage">95%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="95%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-item" data-level="90">
+                                <div class="skill-info">
+                                    <span class="skill-name">JavaScript/TypeScript</span>
+                                    <span class="skill-percentage">90%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="90%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-item" data-level="92">
+                                <div class="skill-info">
+                                    <span class="skill-name">CSS/Tailwind</span>
+                                    <span class="skill-percentage">92%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="92%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-item" data-level="88">
+                                <div class="skill-info">
+                                    <span class="skill-name">Vue.js</span>
+                                    <span class="skill-percentage">88%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="88%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3>Backend Power</h3>
+                        <div class="skills-list">
+                            <div class="skill-item" data-level="85">
+                                <div class="skill-info">
+                                    <span class="skill-name">Node.js</span>
+                                    <span class="skill-percentage">85%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="85%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-item" data-level="80">
+                                <div class="skill-info">
+                                    <span class="skill-name">Express/FastAPI</span>
+                                    <span class="skill-percentage">80%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="80%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-item" data-level="75">
+                                <div class="skill-info">
+                                    <span class="skill-name">MongoDB/PostgreSQL</span>
+                                    <span class="skill-percentage">75%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="75%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-item" data-level="70">
+                                <div class="skill-info">
+                                    <span class="skill-name">Python</span>
+                                    <span class="skill-percentage">70%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="70%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Contact Section Futuriste -->
+    <section id="contact" class="contact-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">04</span>
+                <h2 class="section-title">Créons Ensemble</h2>
+                <div class="title-line"></div>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <a href="mailto:barbelinnoan@gmail.com?subject=Demande de devis - Projet web&body=Bonjour Noan,%0A%0AJe vous contacte pour discuter d'un projet web.%0A%0AType de projet :%0ABudget estimé :%0ADélai souhaité :%0A%0ADescription du projet :%0A%0A%0ACordialement" class="contact-card email-card">
+                        <div class="card-icon">📧</div>
+                        <div class="card-content">
+                            <h3>Email Direct</h3>
+                            <p>barbelinnoan@gmail.com</p>
+                            <span class="response-time">Réponse < 2h • Cliquez pour écrire</span>
+                        </div>
+                    </a>
+                    
+                    <div class="contact-card">
+                        <div class="card-icon">💬</div>
+                        <div class="card-content">
+                            <h3>Discussion Rapide</h3>
+                            <p>WhatsApp / Telegram</p>
+                            <span class="response-time">Disponible 24/7</span>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="card-icon">📱</div>
+                        <div class="card-content">
+                            <h3>Réseaux Sociaux</h3>
+                            <p>LinkedIn / Twitter</p>
+                            <span class="response-time">Actif quotidiennement</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <form class="contact-form" id="contactForm" action="https://formspree.io/f/movkvkgy" method="POST">
+                    <!-- Champs cachés pour Formspree -->
+                    <input type="hidden" name="_subject" value="🚀 Nouveau contact depuis le portfolio - Noan Dev">
+                    <input type="hidden" name="_next" value="thank-you.html">
+                    <input type="hidden" name="_language" value="fr">
+                    
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" required>
+                        <label for="name">Votre Nom</label>
+                        <div class="input-line"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" required>
+                        <label for="email">Email</label>
+                        <div class="input-line"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <select id="project-type" name="project-type" required>
+                            <option value="" disabled selected style="color: #888888;">Sélectionnez le type de projet</option>
+                            <option value="site-vitrine">Site Vitrine</option>
+                            <option value="ecommerce">E-commerce</option>
+                            <option value="webapp">Application Web</option>
+                            <option value="mobile">App Mobile</option>
+                            <option value="api">API / Backend</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                        <label for="project-type">Type de Projet</label>
+                        <div class="input-line"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                        <label for="message">Décrivez votre Vision</label>
+                        <div class="input-line"></div>
+                    </div>
+                    
+                    <div class="form-buttons">
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-text">Envoyer le Formulaire</span>
+                            <div class="btn-fx"></div>
+                            <div class="btn-particles"></div>
+                        </button>
+                        
+                        <a href="mailto:barbelinnoan@gmail.com?subject=Demande de devis - Projet web&body=Bonjour Noan,%0A%0AJe vous contacte pour discuter d'un projet web.%0A%0AType de projet :%0ABudget estimé :%0ADélai souhaité :%0A%0ADescription du projet :%0A%0A%0ACordialement" class="email-quick-btn">
+                            <span>📧 Email Direct</span>
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Minimaliste -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="logo">
+                    <span class="logo-bracket">{</span>
+                    <span class="logo-name">Noan</span>
+                    <span class="logo-bracket">}</span>
+                </div>
+                <p>Freelance Developer • 19 ans • France</p>
+            </div>
+            
+            <div class="footer-right">
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <span>GitHub</span>
+                    </a>
+                    <a href="#" class="social-link">
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="#" class="social-link">
+                        <span>Twitter</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Noan • Conçu et développé avec 💙</p>
+        </div>
+    </footer>
+
+    <!-- Cursor Personnalisé -->
+    <div class="custom-cursor">
+        <div class="cursor-dot"></div>
+        <div class="cursor-ring"></div>
+    </div>
+
+    <script src="noan-script.js"></script>
+</body>
+</html>
