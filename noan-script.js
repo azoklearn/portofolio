@@ -11,15 +11,20 @@ let mousePosition = { x: 0, y: 0 };
 let isScrolling = false;
 let radarAnimationId = null;
 
-// Configuration
+// Détection mobile
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+const isLowEnd = navigator.hardwareConcurrency <= 4;
+const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+// Configuration adaptative
 const CONFIG = {
     particles: {
-        count: 150,
-        speed: 0.5,
+        count: isMobile ? (isLowEnd ? 50 : 80) : 150,
+        speed: isMobile ? 0.3 : 0.5,
         colors: ['#00F5FF', '#8B5FBF', '#4ECDC4', '#FF6B6B'],
-        sizes: [1, 2, 3],
-        connections: true,
-        connectionDistance: 100
+        sizes: isMobile ? [2, 3] : [1, 2, 3],
+        connections: !isMobile || !isLowEnd,
+        connectionDistance: isMobile ? 80 : 100
     },
     skills: {
         frontend: [
@@ -211,13 +216,28 @@ class ParticleSystem {
         this.particles = [];
         this.mouse = { x: 0, y: 0 };
         this.animationId = null;
+        this.isVisible = true;
+        this.fps = isMobile ? 30 : 60;
+        this.frameCount = 0;
         
         this.resize();
         this.createParticles();
         this.animate();
         
         window.addEventListener('resize', () => this.resize());
-        canvas.addEventListener('mousemove', (e) => this.updateMouse(e));
+        
+        // Support tactile et souris
+        if (isTouchDevice) {
+            canvas.addEventListener('touchmove', (e) => this.updateTouch(e));
+            canvas.addEventListener('touchstart', (e) => this.updateTouch(e));
+        } else {
+            canvas.addEventListener('mousemove', (e) => this.updateMouse(e));
+        }
+        
+        // Optimisation : pause quand invisible
+        if (isMobile) {
+            this.setupVisibilityOptimization();
+        }
     }
     
     resize() {
@@ -238,7 +258,43 @@ class ParticleSystem {
         this.mouse.y = e.clientY - rect.top;
     }
     
+    updateTouch(e) {
+        e.preventDefault();
+        if (e.touches.length > 0) {
+            const rect = this.canvas.getBoundingClientRect();
+            this.mouse.x = e.touches[0].clientX - rect.left;
+            this.mouse.y = e.touches[0].clientY - rect.top;
+        }
+    }
+    
+    setupVisibilityOptimization() {
+        // Pause quand l'onglet n'est pas visible
+        document.addEventListener('visibilitychange', () => {
+            this.isVisible = !document.hidden;
+            if (this.isVisible && !this.animationId) {
+                this.animate();
+            }
+        });
+        
+        // Pause quand hors de l'écran
+        const observer = new IntersectionObserver((entries) => {
+            this.isVisible = entries[0].isIntersecting;
+        }, { threshold: 0.1 });
+        
+        observer.observe(this.canvas);
+    }
+    
     animate() {
+        if (!this.isVisible) return;
+        
+        this.frameCount++;
+        
+        // Contrôle des FPS sur mobile
+        if (isMobile && this.frameCount % 2 !== 0) {
+            this.animationId = requestAnimationFrame(() => this.animate());
+            return;
+        }
+        
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
         // Mettre à jour et dessiner les particules
@@ -247,7 +303,7 @@ class ParticleSystem {
             particle.draw(this.ctx);
         });
         
-        // Dessiner les connections
+        // Dessiner les connections (seulement si autorisé)
         if (CONFIG.particles.connections) {
             this.drawConnections();
         }
@@ -360,7 +416,7 @@ function initializeParticles() {
 // ==========================================
 
 function initializeCustomCursor() {
-    if (window.innerWidth <= 1024) return; // Pas sur mobile
+    if (isMobile || isTouchDevice || window.innerWidth <= 1024) return; // Pas sur mobile/tactile
     
     const cursor = document.querySelector('.custom-cursor');
     const cursorDot = document.querySelector('.cursor-dot');
@@ -438,12 +494,51 @@ function initializeNavigation() {
     
     window.addEventListener('scroll', throttle(handleScroll, 16));
     
-    // Navigation mobile
+    // Navigation mobile avec améliorations tactiles
     if (hamburger && navMenu) {
+        let touchStartY = 0;
+        
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
+            
+            // Empêcher le scroll du body quand le menu est ouvert
+            if (navMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
         });
+        
+        // Fermeture du menu en touchant en dehors (mobile)
+        if (isTouchDevice) {
+            document.addEventListener('touchstart', (e) => {
+                if (navMenu.classList.contains('active') && 
+                    !navMenu.contains(e.target) && 
+                    !hamburger.contains(e.target)) {
+                    
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            // Geste de swipe pour fermer le menu
+            navMenu.addEventListener('touchstart', (e) => {
+                touchStartY = e.touches[0].clientY;
+            });
+            
+            navMenu.addEventListener('touchmove', (e) => {
+                const touchY = e.touches[0].clientY;
+                const diff = touchStartY - touchY;
+                
+                if (diff > 50) { // Swipe vers le haut
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
     }
     
     // Smooth scroll et fermeture menu mobile
@@ -1104,6 +1199,27 @@ function setupEventListeners() {
             }
         }
     });
+    
+    // Optimisation batterie mobile
+    if (isMobile) {
+        let batteryLevel = 1;
+        
+        if ('getBattery' in navigator) {
+            navigator.getBattery().then((battery) => {
+                batteryLevel = battery.level;
+                
+                // Réduire les animations si batterie faible
+                if (batteryLevel < 0.2) {
+                    document.documentElement.style.setProperty('--animation-duration', '0.1s');
+                    
+                    if (particlesSystem) {
+                        CONFIG.particles.count = Math.min(CONFIG.particles.count, 30);
+                        CONFIG.particles.connections = false;
+                    }
+                }
+            });
+        }
+    }
 }
 
 // ==========================================

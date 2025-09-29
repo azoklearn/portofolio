@@ -1705,8 +1705,34 @@ body {
 
 @media (max-width: 768px) {
     :root {
-        --section-padding: 80px 0;
+        --section-padding: 60px 0;
         --container-padding: 0 1rem;
+    }
+    
+    /* Typographie mobile optimisée */
+    .section-title {
+        font-size: clamp(2rem, 8vw, 3rem) !important;
+        line-height: 1.2 !important;
+        margin-bottom: 1.5rem !important;
+    }
+    
+    .hero-description p {
+        font-size: 1rem !important;
+        line-height: 1.6 !important;
+    }
+    
+    .title-sub {
+        font-size: 1rem !important;
+    }
+    
+    .timeline-content h3 {
+        font-size: 1.2rem !important;
+        margin-bottom: 0.8rem !important;
+    }
+    
+    .timeline-content p {
+        font-size: 0.95rem !important;
+        line-height: 1.5 !important;
     }
     
     body {
@@ -1738,10 +1764,19 @@ body {
     
     .hamburger {
         display: flex;
+        padding: 1rem;
+        margin: -1rem;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+    }
+    
+    .hamburger:hover {
+        background-color: rgba(0, 245, 255, 0.1);
     }
     
     .hamburger.active span:nth-child(1) {
         transform: rotate(45deg) translate(5px, 5px);
+        background: #FF6B6B;
     }
     
     .hamburger.active span:nth-child(2) {
@@ -1750,6 +1785,36 @@ body {
     
     .hamburger.active span:nth-child(3) {
         transform: rotate(-45deg) translate(7px, -6px);
+        background: #FF6B6B;
+    }
+    
+    /* Menu mobile amélioré */
+    .nav-menu {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: rgba(10, 10, 15, 0.98);
+        backdrop-filter: blur(30px);
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 3rem 2rem;
+        transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        gap: 2.5rem;
+        z-index: 999;
+    }
+    
+    .nav-link {
+        padding: 1.5rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        width: 100%;
+        text-align: center;
+        font-size: 1.1rem !important;
+    }
+    
+    .nav-number {
+        font-size: 0.9rem !important;
     }
     
     .hero-name {
@@ -1848,10 +1913,58 @@ body {
         text-align: center;
     }
     
+    /* Formulaire mobile optimisé */
     .form-group input,
     .form-group select,
     .form-group textarea {
-        padding: 1rem;
+        padding: 1.2rem;
+        font-size: 1rem;
+        border-radius: 12px;
+        min-height: 50px;
+    }
+    
+    .form-group textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+    
+    .form-group select {
+        min-height: 50px;
+        font-size: 1rem;
+    }
+    
+    /* Zone de touch plus grande */
+    .contact-card {
+        padding: 1.8rem;
+        margin-bottom: 1rem;
+        border-radius: 16px;
+        min-height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .email-card {
+        padding: 1.8rem;
+        min-height: 100px;
+        border-radius: 16px;
+    }
+    
+    .project-card {
+        margin-bottom: 1.5rem;
+        border-radius: 20px;
+    }
+    
+    .skill-item {
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        border-radius: 16px;
+    }
+    
+    .stat-card {
+        padding: 2rem 1.5rem;
+        margin-bottom: 1rem;
+        border-radius: 20px;
     }
     
     .form-group select {
@@ -1968,6 +2081,86 @@ body {
     
     .floating-elements {
         animation: none;
+    }
+}
+
+/* ==========================================
+   OPTIMISATIONS TACTILES
+   ========================================== */
+
+/* Amélioration des zones de touch */
+@media (max-width: 768px) {
+    /* Suppression des effets hover sur tactile */
+    .project-card:hover,
+    .skill-item:hover,
+    .contact-card:hover,
+    .stat-card:hover {
+        transform: none !important;
+        box-shadow: none !important;
+        border-color: rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    /* États actifs pour le tactile */
+    .project-card:active,
+    .contact-card:active,
+    .email-card:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+    
+    /* Boutons tactiles optimisés */
+    .cta-primary,
+    .cta-secondary,
+    .email-btn,
+    .submit-btn,
+    .email-quick-btn {
+        min-height: 50px;
+        padding: 1.2rem 2rem;
+        border-radius: 12px;
+        font-size: 1rem;
+        transition: all 0.2s ease;
+    }
+    
+    .cta-primary:active,
+    .submit-btn:active {
+        transform: scale(0.95);
+        filter: brightness(0.9);
+    }
+    
+    .cta-secondary:active,
+    .email-btn:active,
+    .email-quick-btn:active {
+        background: rgba(0, 245, 255, 0.2);
+        transform: scale(0.95);
+    }
+}
+
+/* Gestes de swipe */
+@media (max-width: 768px) {
+    .timeline-item {
+        touch-action: pan-y;
+    }
+    
+    .hero-section {
+        touch-action: pan-y;
+    }
+    
+    .skills-section {
+        touch-action: pan-y;
+    }
+    
+    /* Scroll horizontal pour les cartes sur très petits écrans */
+    .about-stats {
+        display: flex;
+        overflow-x: auto;
+        gap: 1rem;
+        padding-bottom: 1rem;
+        scroll-snap-type: x mandatory;
+    }
+    
+    .stat-card {
+        flex: 0 0 280px;
+        scroll-snap-align: start;
     }
 }
 
