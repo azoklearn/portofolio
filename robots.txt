@@ -1,0 +1,26 @@
+# robots.txt pour Noan Portfolio
+# Développeur Web Freelance
+
+User-agent: *
+Allow: /
+
+# Fichiers à ne pas indexer
+Disallow: /noan-script.js
+Disallow: /noan-style.css
+
+# Sitemap
+Sitemap: https://noan-dev.fr/sitemap.xml
+
+# Bots spécifiques
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Crawl-delay pour éviter la surcharge (optionnel)
+# Crawl-delay: 1
+

@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist SEO - Portfolio Noan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            color: #fff;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #8B5FBF 0%, #B794F4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+        }
+        
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.1);
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 1rem;
+            position: relative;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(135deg, #8B5FBF 0%, #B794F4 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #FFFFFF;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #B794F4;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .priority-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .priority-high {
+            background: #FF6B6B;
+            color: white;
+        }
+        
+        .priority-medium {
+            background: #FFB84D;
+            color: #0a0e27;
+        }
+        
+        .priority-low {
+            background: #4ECDC4;
+            color: #0a0e27;
+        }
+        
+        .task {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .task:hover {
+            background: rgba(0, 0, 0, 0.3);
+            transform: translateX(5px);
+        }
+        
+        .task.completed {
+            opacity: 0.6;
+            border-left-color: #4ECDC4;
+        }
+        
+        .task input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: #8B5FBF;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+        
+        .task-content {
+            flex: 1;
+        }
+        
+        .task-title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            font-size: 1.05rem;
+        }
+        
+        .task.completed .task-title {
+            text-decoration: line-through;
+        }
+        
+        .task-description {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(139, 95, 191, 0.15);
+            border-radius: 12px;
+            min-width: 150px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #B794F4;
+        }
+        
+        .stat-label {
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 0.5rem;
+        }
+        
+        .reset-btn {
+            background: rgba(255, 107, 107, 0.2);
+            border: 2px solid #FF6B6B;
+            color: #FF6B6B;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .reset-btn:hover {
+            background: rgba(255, 107, 107, 0.3);
+            transform: scale(1.05);
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #8B5FBF;
+            animation: confetti-fall 3s linear forwards;
+            pointer-events: none;
+        }
+        
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>✅ Checklist SEO Portfolio</h1>
+            <p class="subtitle">Suivez votre progression étape par étape</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar">0%</div>
+            </div>
+        </header>
+        
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number" id="completedCount">0</div>
+                <div class="stat-label">Tâches complétées</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number" id="remainingCount">0</div>
+                <div class="stat-label">Tâches restantes</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number" id="progressPercent">0%</div>
+                <div class="stat-label">Progression</div>
+            </div>
+        </div>
+        
+        <!-- PRIORITÉ HAUTE -->
+        <div class="section">
+            <h2 class="section-title">
+                <span class="priority-badge priority-high">PRIORITÉ HAUTE</span>
+                Actions Urgentes
+            </h2>
+            
+            <div class="task" onclick="toggleTask(this)">
+                <input type="checkbox">
+                <div class="task-content">
+                    <div class="task-title">Créer l'image Open Graph (og-image.jpg)</div>
+                    <div class="task-description">
+                        Dimensions: 1200x630px | Utiliser og-image-template.html | 
+                        Cette image apparaîtra lors du partage sur les réseaux sociaux
+                    </div>
+                </div>
+            </div>
+            
+            <div class="task" onclick="toggleTask(this)">
+                <input type="checkbox">
+                <div class="task-content">
+                    <div class="task-title">Créer les favicons et icônes PWA</div>
+                    <div class="task-description">
+                        Fichiers: icon-192x192.png, icon-512x512.png, apple-touch-icon.png, favicon.ico | 
+                        Utiliser realfavicongenerator.net
+                    </div>
+                </div>
+            </div>
+            
+            <div class="task" onclick="toggleTask(this)">
+                <input type="checkbox">
+                <div class="task-content">
+                    <div class="task-title">Remplacer toutes les URLs "noan-dev.fr"</div>
+                    <div class="task-description">
+                        Fichiers à modifier: index.html, sitemap.xml, robots.txt | 
+                        Remplacer par votre vrai nom de domaine
+                    </div>
+                </div>
+            </div>
+            
+            <div class="task" onclick="toggleTask(this)">
+                <input type="checkbox">
+                <div class="task-content">
+                    <div class="task-title">Mettre à jour les liens sociaux</div>
+                    <div class="task-description">
+                        Dans index.html: Instagram @noan.web (lignes 75, 660), GitHub (76, 663), LinkedIn (77, 666) - ✅ Déjà fait !
+                    </div>
+                </div>
+            </div>
+            
+            <div class="task" onclick="toggleTask(this)">
+                <input type="checkbox">
+                <div class="task-content">
+                    <div class="task-title">Optimiser et compresser toutes les images</div>
+                    <div class="task-description">
+                        Convertir en WebP, compresser avec TinyPNG ou Squoosh | 
+                        Objectif: Réduire le poids de 50-70%
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- PRIORITÉ MOYENNE -->
+        <div class="section">
+            <h2 class="section-title">
+                <span class="priority-badge priority-medium">PRIORITÉ MOYENNE</span>
+                Après la Mise en Ligne
+            </h2>
+            
+            <div class="task" onclick="toggleTask(this)">
+                <input type="checkbox">
+                <div class="task-content">
+                    <div class="task-title">Configurer Google Search Console</div>
+                    <div class="task-description">
+                        URL: search.google.com/search-console | 
+                        Ajouter votre propriété et vérifier avec la balise meta
+                    </div>
+                </div>
+            </div>
+            
+            <div class="task" onclick="toggleTask(this)">
+                <input type="checkbox">
+                <div class="task-content">
+                    <div class="task-title">Soumettre le sitemap.xml</div>
+                    <div class="task-description">
+                        Dans Google Search Console > Sitemaps > 
+                        Ajouter: https://votre-domaine.com/sitemap.xml
+                    </div>
+                </div>
+            </div>
+            
+            <div class="task" onclick="toggleTask(this)">
+                <input type="checkbox">
+                <div class="task-content">
+                    <div class="task-title">Installer Google Analytics</div>
+                    <div class="task-description">
+                        Créer un compte sur analytics.google.com | 
+                        Ajouter le code de suivi dans index.html avant &lt;/head&gt;
+                    </div>
+                </div>
+            </div>
+            
+            <div class="task" onclick="toggleTask(this)">
+                <input type="checkbox">
+                <div class="task-content">
+                    <div class="task-title">Test PageSpeed Insights</div>
+                    <div class="task-description">
+                        URL: pagespeed.web.dev | 
+                        Objectif: Score > 90/100 pour mobile et desktop
+                    </div>
+                </div>
+            </div>
+            
+            <div class="task" onclick="toggleTask(this)">
+                <input type="checkbox">
+                <div class="task-content">
+                    <div class="task-title">Test Mobile-Friendly</div>
+                    <div class="task-description">
+                        URL: search.google.com/test/mobile-friendly | 
+                        Vérifier que le site est optimisé mobile
+                    </div>
+                </div>
+            </div>
+            
+            <div class="task" onclick="toggleTask(this)">
+                <input type="checkbox">
+                <div class="task-content">
+                    <div class="task-title">Valider Schema.org</div>
+                    <div class="task-description">
+                        URL: validator.schema.org | 
+                        Vérifier qu'il n'y a pas d'erreurs dans les données structurées
+                    </div>
+                </div>
+            </div>
+            
+            <div class="task" onclick="toggleTask(this)">
+                <input type="checkbox">
+                <div class="task-content">
+                    <div class="task-title">Tester Open Graph (Facebook)</div>
+                    <div class="task-description">
+                        URL: developers.facebook.com/tools/debug | 
+                        Vérifier que l'image et les infos s'affichent correctement
+                    </div>
+                </div>
+            </div>
+            
+            <div class="task" onclick="toggleTask(this)">
+                <input type="checkbox">
+                <div class="task-content">
+                    <div class="task-title">Tester Twitter Card</div>
+                    <div class="task-description">
+                        URL: cards-dev.twitter.com/validator | 
+                        Vérifier l'aperçu de la carte Twitter
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- PRIORITÉ BASSE -->
+        <div class="section">
+            <h2 class="section-title">
+                <span class="priority-badge priority-low">PRIORITÉ BASSE</span>
+                Améliorations Optionnelles
+            </h2>
+            
+            <div class="task" onclick="toggleTask(this)">
+                <input type="checkbox">
+                <div class="task-content">
+                    <div class="task-title">Créer les screenshots PWA</div>
+                    <div class="task-description">
+                        screenshot-desktop.jpg (1920x1080) et screenshot-mobile.jpg (750x1334) | 
+                        Captures d'écran de votre site
+                    </div>
+                </div>
+            </div>
+            
+            <div class="task" onclick="toggleTask(this)">
+                <input type="checkbox">
+                <div class="task-content">
+                    <div class="task-title">S'inscrire sur les plateformes freelance</div>
+                    <div class="task-description">
+                        Malt, Codeur.com, 5euros.com | 
+                        Ajouter un lien vers votre portfolio (backlinks de qualité)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="task" onclick="toggleTask(this)">
+                <input type="checkbox">
+                <div class="task-content">
+                    <div class="task-title">Créer un profil complet sur LinkedIn</div>
+                    <div class="task-description">
+                        Ajouter votre portfolio dans la section "Site web" | 
+                        Publier du contenu régulièrement
+                    </div>
+                </div>
+            </div>
+            
+            <div class="task" onclick="toggleTask(this)">
+                <input type="checkbox">
+                <div class="task-content">
+                    <div class="task-title">Créer un profil GitHub complet</div>
+                    <div class="task-description">
+                        Ajouter un README.md sur votre profil | 
+                        Lien vers portfolio | Publier vos projets
+                    </div>
+                </div>
+            </div>
+            
+            <div class="task" onclick="toggleTask(this)">
+                <input type="checkbox">
+                <div class="task-content">
+                    <div class="task-title">Implémenter lazy loading avancé</div>
+                    <div class="task-description">
+                        Voir SEO-GUIDE.md section "Optimisations Avancées" | 
+                        Améliore les performances
+                    </div>
+                </div>
+            </div>
+            
+            <div class="task" onclick="toggleTask(this)">
+                <input type="checkbox">
+                <div class="task-content">
+                    <div class="task-title">Créer un Service Worker (PWA complète)</div>
+                    <div class="task-description">
+                        Fichier sw.js pour cache offline | 
+                        Voir exemple dans SEO-GUIDE.md
+                    </div>
+                </div>
+            </div>
+            
+            <div class="task" onclick="toggleTask(this)">
+                <input type="checkbox">
+                <div class="task-content">
+                    <div class="task-title">Planifier une stratégie de contenu</div>
+                    <div class="task-description">
+                        Blog technique, études de cas, tutoriels | 
+                        Publier 1-2 articles par mois pour améliorer le SEO
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <button class="reset-btn" onclick="resetChecklist()">🔄 Réinitialiser la checklist</button>
+    </div>
+    
+    <script>
+        // Charger l'état sauvegardé
+        function loadState() {
+            const saved = localStorage.getItem('seoChecklist');
+            if (saved) {
+                const state = JSON.parse(saved);
+                const checkboxes = document.querySelectorAll('.task input[type="checkbox"]');
+                checkboxes.forEach((checkbox, index) => {
+                    if (state[index]) {
+                        checkbox.checked = true;
+                        checkbox.closest('.task').classList.add('completed');
+                    }
+                });
+            }
+            updateProgress();
+        }
+        
+        // Sauvegarder l'état
+        function saveState() {
+            const checkboxes = document.querySelectorAll('.task input[type="checkbox"]');
+            const state = Array.from(checkboxes).map(cb => cb.checked);
+            localStorage.setItem('seoChecklist', JSON.stringify(state));
+        }
+        
+        // Toggle task
+        function toggleTask(taskElement) {
+            const checkbox = taskElement.querySelector('input[type="checkbox"]');
+            checkbox.checked = !checkbox.checked;
+            
+            if (checkbox.checked) {
+                taskElement.classList.add('completed');
+                createConfetti();
+            } else {
+                taskElement.classList.remove('completed');
+            }
+            
+            updateProgress();
+            saveState();
+        }
+        
+        // Mettre à jour la progression
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('.task input[type="checkbox"]');
+            const total = checkboxes.length;
+            const completed = Array.from(checkboxes).filter(cb => cb.checked).length;
+            const remaining = total - completed;
+            const percent = Math.round((completed / total) * 100);
+            
+            document.getElementById('completedCount').textContent = completed;
+            document.getElementById('remainingCount').textContent = remaining;
+            document.getElementById('progressPercent').textContent = percent + '%';
+            
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = percent + '%';
+            progressBar.textContent = percent + '%';
+            
+            // Célébration si 100%
+            if (percent === 100) {
+                celebrate();
+            }
+        }
+        
+        // Réinitialiser
+        function resetChecklist() {
+            if (confirm('Êtes-vous sûr de vouloir réinitialiser toute la checklist ?')) {
+                localStorage.removeItem('seoChecklist');
+                const checkboxes = document.querySelectorAll('.task input[type="checkbox"]');
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                    checkbox.closest('.task').classList.remove('completed');
+                });
+                updateProgress();
+            }
+        }
+        
+        // Confettis
+        function createConfetti() {
+            for (let i = 0; i < 10; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.background = ['#8B5FBF', '#B794F4', '#9D7FC9', '#AB87D9'][Math.floor(Math.random() * 4)];
+                confetti.style.animationDelay = Math.random() * 0.3 + 's';
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+        
+        // Célébration finale
+        function celebrate() {
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => createConfetti(), i * 30);
+            }
+            
+            setTimeout(() => {
+                alert('🎉 Félicitations ! Vous avez complété toutes les tâches SEO !\n\nVotre portfolio est maintenant parfaitement optimisé pour les moteurs de recherche. 🚀');
+            }, 500);
+        }
+        
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            loadState();
+            
+            // Empêcher le toggle quand on clique sur la checkbox directement
+            document.querySelectorAll('.task input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+                
+                checkbox.addEventListener('change', () => {
+                    if (checkbox.checked) {
+                        checkbox.closest('.task').classList.add('completed');
+                        createConfetti();
+                    } else {
+                        checkbox.closest('.task').classList.remove('completed');
+                    }
+                    updateProgress();
+                    saveState();
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
